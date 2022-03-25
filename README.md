@@ -1,2 +1,2 @@
 # Slider-Flutter
-Flutter slider without any plugin.
+Flutter App contains Slider, Gridview, FAB, Hide on Scroll Bottom App Bar & PopUp Menu....
