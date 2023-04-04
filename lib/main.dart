@@ -42,6 +42,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  
+  List<String> carouseList = [
+    "exampleLink",
+    "exampleLink",
+    "exampleLink",
+    "exampleLink",
+    "exampleLink",
+    "exampleLink",
+  ];
+  
   late final PageController pageController;
   ScrollController _scrollController = ScrollController();
   int pageNo = 0;
@@ -53,12 +63,14 @@ class _HomeState extends State<Home> {
       if (pageNo == 4) {
         pageNo = 0;
       }
-      pageController.animateToPage(
-        pageNo,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOutCirc,
-      );
-      pageNo++;
+      if (pageController.hasClients) {
+        pageController.animateToPage(
+          pageNo,
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeInOutCirc,
+        );
+        pageNo++;
+      }
     });
   }
 
@@ -200,14 +212,18 @@ class _HomeState extends State<Home> {
                           margin: const EdgeInsets.only(
                               right: 8, left: 8, top: 24, bottom: 12),
                           decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(carouseList[index]),
+                              fit: BoxFit.cover
+                            ),
                             borderRadius: BorderRadius.circular(24.0),
-                            color: Colors.amberAccent,
+                            // color: Colors.amberAccent,
                           ),
                         ),
                       ),
                     );
                   },
-                  itemCount: 5,
+                  itemCount: carouseList.length,
                 ),
               ),
               const SizedBox(
@@ -216,7 +232,7 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
-                  5,
+                  carouseList.length,
                   (index) => GestureDetector(
                     child: Container(
                       margin: const EdgeInsets.all(2.0),
